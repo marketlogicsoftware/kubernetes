@@ -319,7 +319,7 @@ func (DeleteOptions) SwaggerDoc() map[string]string {
 var map_DownwardAPIVolumeFile = map[string]string{
 	"":                 "DownwardAPIVolumeFile represents information to create the file containing the pod field",
 	"path":             "Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'",
-	"fieldRef":         "Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.",
+	"fieldRef":         "Selects a field of the pod: only annotations, labels, name and namespace are supported.",
 	"resourceFieldRef": "Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.",
 }
 
@@ -489,13 +489,24 @@ func (FCVolumeSource) SwaggerDoc() map[string]string {
 	return map_FCVolumeSource
 }
 
+var map_FlexVolumeOptionsItem = map[string]string{
+	"":         "FlexVolumeOptionsItem represents information to create an option containing the pod field",
+	"name":     "Required: Name is  the relative name of the option field.",
+	"fieldRef": "Selects a field of the pod: only annotations, labels, name and namespace are supported.",
+}
+
+func (FlexVolumeOptionsItem) SwaggerDoc() map[string]string {
+	return map_FlexVolumeOptionsItem
+}
+
 var map_FlexVolumeSource = map[string]string{
-	"":          "FlexVolume represents a generic volume resource that is provisioned/attached using a exec based plugin. This is an alpha feature and may change in future.",
-	"driver":    "Driver is the name of the driver to use for this volume.",
-	"fsType":    "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". The default filesystem depends on FlexVolume script.",
-	"secretRef": "Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.",
-	"readOnly":  "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
-	"options":   "Optional: Extra command options if any.",
+	"":             "FlexVolume represents a generic volume resource that is provisioned/attached using a exec based plugin. This is an alpha feature and may change in future.",
+	"driver":       "Driver is the name of the driver to use for this volume.",
+	"fsType":       "Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. \"ext4\", \"xfs\", \"ntfs\". The default filesystem depends on FlexVolume script.",
+	"secretRef":    "Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.",
+	"readOnly":     "Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.",
+	"options":      "Optional: Extra command options if any.",
+	"optionsItems": "Optional: Items is a list of pod fields",
 }
 
 func (FlexVolumeSource) SwaggerDoc() map[string]string {

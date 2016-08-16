@@ -73,6 +73,7 @@ func init() {
 		DeepCopy_v1_ExecAction,
 		DeepCopy_v1_ExportOptions,
 		DeepCopy_v1_FCVolumeSource,
+		DeepCopy_v1_FlexVolumeOptionsItem,
 		DeepCopy_v1_FlexVolumeSource,
 		DeepCopy_v1_FlockerVolumeSource,
 		DeepCopy_v1_GCEPersistentDiskVolumeSource,
@@ -942,6 +943,20 @@ func DeepCopy_v1_FCVolumeSource(in FCVolumeSource, out *FCVolumeSource, c *conve
 	return nil
 }
 
+func DeepCopy_v1_FlexVolumeOptionsItem(in FlexVolumeOptionsItem, out *FlexVolumeOptionsItem, c *conversion.Cloner) error {
+	out.Name = in.Name
+	if in.FieldRef != nil {
+		in, out := in.FieldRef, &out.FieldRef
+		*out = new(ObjectFieldSelector)
+		if err := DeepCopy_v1_ObjectFieldSelector(*in, *out, c); err != nil {
+			return err
+		}
+	} else {
+		out.FieldRef = nil
+	}
+	return nil
+}
+
 func DeepCopy_v1_FlexVolumeSource(in FlexVolumeSource, out *FlexVolumeSource, c *conversion.Cloner) error {
 	out.Driver = in.Driver
 	out.FSType = in.FSType
@@ -963,6 +978,17 @@ func DeepCopy_v1_FlexVolumeSource(in FlexVolumeSource, out *FlexVolumeSource, c 
 		}
 	} else {
 		out.Options = nil
+	}
+	if in.OptionsItems != nil {
+		in, out := in.OptionsItems, &out.OptionsItems
+		*out = make([]FlexVolumeOptionsItem, len(in))
+		for i := range in {
+			if err := DeepCopy_v1_FlexVolumeOptionsItem(in[i], &(*out)[i], c); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.OptionsItems = nil
 	}
 	return nil
 }

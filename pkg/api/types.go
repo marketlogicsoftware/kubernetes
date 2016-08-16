@@ -549,6 +549,16 @@ type FlexVolumeSource struct {
 	ReadOnly bool `json:"readOnly,omitempty"`
 	// Optional: Extra driver options if any.
 	Options map[string]string `json:"options,omitempty"`
+	// Optional: Items is a list of pod fields
+	OptionsItems []FlexVolumeOptionsItem `json:"optionsItems,omitempty"`
+}
+
+// FlexVolumeOptionsItem represents information to create an option containing the pod field
+type FlexVolumeOptionsItem struct {
+	// Required: Name is  the relative name of the option field.
+	Name string `json:"name"`
+	// Selects a field of the pod: only annotations, labels, name and namespace are supported.
+	FieldRef *ObjectFieldSelector `json:"fieldRef,omitempty"`
 }
 
 // Represents a Persistent Disk resource in AWS.
